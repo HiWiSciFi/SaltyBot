@@ -1,5 +1,6 @@
 data = {}
 bot = None
+intents = None
 
 from os import getenv
 from dotenv import load_dotenv
