@@ -12,7 +12,7 @@ async def command_embed(ctx, color,*args):
     try:
         col = discord.Color(value=int(colour, 16))
     except:
-        col = 0x3DA894
+        col = globals.defaultcolor
         tx += color + ' '
 
     for s in args:

@@ -17,5 +17,6 @@ from commands import bind
 from commands import clear
 from commands import embed
 from commands import help
+from commands import ticket
 
 globals.bot.run(globals.TOKEN)
