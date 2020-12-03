@@ -18,6 +18,7 @@ globals.bot.remove_command('help')
 # import events
 from events import ready
 from events import member_join
+from events import voice_state_update
 
 # import commands
 from commands import bind
