@@ -1,6 +1,3 @@
-# features:
-# 
-
 # imports
 import globals
 import data
