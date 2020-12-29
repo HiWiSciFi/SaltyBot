@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 
 # load the data from the file
-data.Load()
+data.load()
 
 # set intents
 globals.intents = discord.Intents.default()
@@ -17,15 +17,10 @@ globals.bot.remove_command('help')
 
 # import events
 from events import ready
-from events import member_join
 from events import voice_state_update
 
 # import commands
-from commands import bind
-from commands import clear
-from commands import embed
 from commands import help
-from commands import ticket
 
 # run the bot
 globals.bot.run(globals.TOKEN)
