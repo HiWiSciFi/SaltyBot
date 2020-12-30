@@ -14,3 +14,9 @@ async def sendEmbed(ctx, title, description, color, time):
     embedVar = discord.Embed(title=title, description=description, color=color)
     msg = await ctx.send(embed=embedVar)
     await helpers.delMessages([ctx.message, msg], time)
+
+def toOneString(*args):
+	tx = ''
+	for s in args:
+		tx += s + ' '
+	return tx
