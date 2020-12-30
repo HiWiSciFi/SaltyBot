@@ -9,5 +9,4 @@ async def command_cclist(ctx):
 		if f'creation vcs' in globals.data:
 			for key in globals.data[f'creation vcs']:
 				desc += f'`{key}`\n'
-				await helpers.sendEmbed(ctx, f'Creation channels:', desc, globals.defaultcolor, 20)
-				return
+		await helpers.sendEmbed(ctx, f'Creation channels:', desc, globals.defaultcolor, 20)

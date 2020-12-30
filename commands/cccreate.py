@@ -11,6 +11,6 @@ async def command_cccreate(ctx, channelid, *args):
 		creationname = helpers.toOneString(*args)
 		if not f'creation vcs' in globals.data:
 			globals.data[f'creation vcs'] = {}
-			globals.data[f'creation vcs'][f'{channelid}'] = creationname
-			data.save()
-			await helpers.sendEmbed(ctx, f'Neuer "creation"-channel erstellt mit Standardnamen "{creationname}"', f'operation erfolgreich', globals.defaultcolor, 20)
+		globals.data[f'creation vcs'][f'{channelid}'] = creationname
+		data.save()
+		await helpers.sendEmbed(ctx, f'Neuer "creation"-channel erstellt mit Standardnamen "{creationname}"', f'operation erfolgreich', globals.defaultcolor, 20)
