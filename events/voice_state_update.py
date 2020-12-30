@@ -3,19 +3,20 @@ import data
 
 @globals.bot.event
 async def on_voice_state_update(member, before, after):
-	if not f'creation vcs' in globals.data:
-		globals.data[f'creation vcs'] = {}
-		data.save()
+	if ctx.guild.id == 622489511837827072 or ctx.guild.id == 683304302147534889:
+		if not f'creation vcs' in globals.data:
+			globals.data[f'creation vcs'] = {}
+			data.save()
 
-	if not before.channel and after.channel:
-		if f'{after.channel.id}' in globals.data[f'creation vcs']:
-			await createChannel(member, after)
-	elif before.channel and not after.channel:
-		await deleteChannelsIfEmpty(before.channel)
-	elif before.channel and after.channel:
-		if f'{after.channel.id}' in globals.data[f'creation vcs']:
-			await createChannel(member, after)
-		await deleteChannelsIfEmpty(before.channel)
+		if not before.channel and after.channel:
+			if f'{after.channel.id}' in globals.data[f'creation vcs']:
+				await createChannel(member, after)
+		elif before.channel and not after.channel:
+			await deleteChannelsIfEmpty(before.channel)
+		elif before.channel and after.channel:
+			if f'{after.channel.id}' in globals.data[f'creation vcs']:
+				await createChannel(member, after)
+				await deleteChannelsIfEmpty(before.channel)
 
 
 async def createChannel(member, origChannel):
@@ -37,7 +38,7 @@ async def createChannel(member, origChannel):
 				if not f'{origChannel.channel.id}' in globals.data[f'channel enumerations']:
 					globals.data[f'channel enumerations'][f'{origChannel.channel.id}'] = {}
 
-				
+
 				data.save()
 				continue
 			if savedchannelname[i] == f'°':
