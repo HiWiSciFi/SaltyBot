@@ -21,6 +21,7 @@ from events import voice_state_update
 
 # import commands
 from commands import help
+from commands import ccchannel
 
 # run the bot
 globals.bot.run(globals.TOKEN)
