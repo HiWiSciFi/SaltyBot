@@ -1,9 +1,12 @@
 {
-    "channel enumerations": {
-        "785663275529797633": {}
-    },
+    "channel enumerations": {},
     "created vcs": [],
     "creation vcs": {
-        "785663275529797633": "[\\##] \u00b0's Channel "
-    }
+        "753695165708763238": "test vc (procedural) ",
+        "785663275529797633": "one of many "
+    },
+    "permitted servers": [
+        "622489511837827072",
+        "683304302147534889"
+    ]
 }

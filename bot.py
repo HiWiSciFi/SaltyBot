@@ -7,6 +7,21 @@ from discord.ext import commands
 # load the data from the file
 data.load()
 
+# create data fields if necessary
+if not f'permitted servers' in globals.data:
+	globals.data[f'permitted servers'] = []
+
+if not f'creation vcs' in globals.data:
+	globals.data[f'creation vcs'] = {}
+
+if not f'created vcs' in globals.data:
+	globals.data[f'created vcs'] = []
+
+if not f'channel enumerations' in globals.data:
+	globals.data[f'channel enumerations'] = {}
+
+data.save()
+
 # set intents
 globals.intents = discord.Intents.default()
 globals.intents.members = True
