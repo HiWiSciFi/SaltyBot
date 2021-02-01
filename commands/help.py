@@ -3,6 +3,7 @@ import helpers
 import discord
 
 @globals.bot.command('help')
+@has_permissions(manage_channels=True)
 async def command_help(ctx):
 	if f'{ctx.guild.id}' in globals.data[f'permitted servers']:
 		desc = ''

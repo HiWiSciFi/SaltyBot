@@ -3,6 +3,7 @@ import helpers
 import discord
 
 @globals.bot.command('cclist')
+@has_permissions(manage_channels=True)
 async def command_cclist(ctx):
 	if f'{ctx.guild.id}' in globals.data[f'permitted servers']:
 		desc = ''

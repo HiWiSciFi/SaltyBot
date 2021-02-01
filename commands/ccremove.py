@@ -4,6 +4,7 @@ import discord
 import data
 
 @globals.bot.command('ccremove')
+@has_permissions(manage_channels=True)
 async def command_ccremove(ctx, channelid):
 	if f'{ctx.guild.id}' in globals.data[f'permitted servers']:
 		if channelid in globals.data[f'creation vcs']:
