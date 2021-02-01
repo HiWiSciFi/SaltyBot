@@ -1,6 +1,7 @@
 import globals
 import helpers
 import discord
+from discord.ext.commands import has_permissions
 
 @globals.bot.command('help')
 @has_permissions(manage_channels=True)

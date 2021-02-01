@@ -2,6 +2,7 @@ import globals
 import helpers
 import discord
 import data
+from discord.ext.commands import has_permissions
 
 @globals.bot.command('ccremove')
 @has_permissions(manage_channels=True)
