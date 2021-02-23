@@ -3,7 +3,6 @@ import data
 
 @globals.bot.event
 async def on_voice_state_update(member, before, after):
-	#if guild.id == 622489511837827072 or guild.id == 683304302147534889:
 
 	if not before.channel and after.channel and f'{after.channel.guild.id}' in globals.data[f'permitted servers']:
 		if f'{after.channel.id}' in globals.data[f'creation vcs']:
@@ -36,8 +35,7 @@ async def createChannel(member, origChannel):
 				# TODO: implement per creation channel enumeration
 				if not f'{origChannel.channel.id}' in globals.data[f'channel enumerations']:
 					globals.data[f'channel enumerations'][f'{origChannel.channel.id}'] = {}
-
-				data.save()
+					
 				continue
 			if savedchannelname[i] == f'°':
 				channelname += member.name
