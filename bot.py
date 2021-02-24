@@ -1,6 +1,6 @@
 # imports
-import globals
-import data
+from utils import globals
+from utils import data
 import discord
 from discord.ext import commands
 
