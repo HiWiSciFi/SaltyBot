@@ -1,5 +1,5 @@
-import globals
-import helpers
+from utils import globals
+from utils import helpers
 import discord
 from discord.ext.commands import has_permissions
 

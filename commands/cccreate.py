@@ -1,6 +1,6 @@
-import globals
-import helpers
-import data
+from utils import globals
+from utils import helpers
+from utils import data
 import discord
 from discord.ext.commands import has_permissions
 

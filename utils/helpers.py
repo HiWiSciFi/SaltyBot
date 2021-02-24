@@ -1,5 +1,4 @@
 import asyncio
-import helpers
 import discord
 
 async def delMessages(msgs, delay):

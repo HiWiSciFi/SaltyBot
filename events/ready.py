@@ -1,4 +1,4 @@
-import globals
+from utils import globals
 import discord
 
 @globals.bot.event
