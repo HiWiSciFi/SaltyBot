@@ -1,8 +1,8 @@
 # imports
 from utils import globals
 from utils import data
-import discord
 from discord.ext import commands
+import discord
 
 # load the data from the file
 data.load()
@@ -15,7 +15,10 @@ if not f'creation vcs' in globals.data:
 	globals.data[f'creation vcs'] = {}
 
 if not f'created vcs' in globals.data:
-	globals.data[f'created vcs'] = []
+	globals.data[f'created vcs'] = {}
+
+if not f'created tcs' in globals.data:
+	globals.data[f'created tcs'] = {}
 
 if not f'channel enumerations' in globals.data:
 	globals.data[f'channel enumerations'] = {}
