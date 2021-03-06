@@ -1,5 +1,6 @@
 from utils import globals
 from utils import channelutils
+from utils import data
 
 @globals.bot.event
 async def on_voice_state_update(member, before, after):
@@ -15,14 +16,14 @@ async def on_voice_state_update(member, before, after):
 			# if channel is a created vc
 			if f'{after.channel.id}' in globals.data[f'created vcs']:
 				# add access permission
-				await channelutils.setTextChannelAccess(member, after.channel.id, True)
+				await channelutils.setChannelAccess(member, after.channel.id, True)
 
 	# if disconnected from a channel
 	elif before.channel and not after.channel and f'{before.channel.guild.id}' in globals.data[f'permitted servers']:
 		# if channel is a created vc
 		if f'{before.channel.id}' in globals.data[f'created vcs']:
 			# remove access permission
-			await channelutils.setTextChannelAccess(member, before.channel.id, False)
+			await channelutils.setChannelAccess(member, before.channel.id, False)
 			# delete the vc if it is empty
 			await channelutils.deleteChannelsIfEmpty(before.channel)
 
@@ -33,7 +34,7 @@ async def on_voice_state_update(member, before, after):
 			# if channel is a created vc
 			if f'{before.channel.id}' in globals.data[f'created vcs']:
 				# remove access permission
-				await channelutils.setTextChannelAccess(member, before.channel.id, False)
+				await channelutils.setChannelAccess(member, before.channel.id, False)
 				# delete vc if it is empty
 				await channelutils.deleteChannelsIfEmpty(before.channel)
 
@@ -46,7 +47,7 @@ async def on_voice_state_update(member, before, after):
 			# if channel is a created vc
 			if f'{after.channel.id}' in globals.data[f'created vcs']:
 				# add access permission
-				await channelutils.setTextChannelAccess(member, after.channel.id, True)
+				await channelutils.setChannelAccess(member, after.channel.id, True)
 
-	else:
-		print(f'server not permitted')
+	# save data
+	data.save()

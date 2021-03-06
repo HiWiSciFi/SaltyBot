@@ -12,4 +12,4 @@ async def command_cccreate(ctx, channelid, *args):
 		print(creationname)
 		globals.data[f'creation vcs'][f'{channelid}'] = creationname
 		data.save()
-		await helpers.sendEmbed(ctx, f'Neuer "creation"-channel erstellt mit Standardnamen "{creationname}"', f'operation erfolgreich', globals.defaultcolor, 20)
+		await helpers.sendEmbedDel(ctx, f'Neuer "creation"-channel erstellt mit Standardnamen "{creationname}"', f'operation erfolgreich', globals.defaultcolor, 20)

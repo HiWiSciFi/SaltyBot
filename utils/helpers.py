@@ -9,10 +9,16 @@ async def delMessages(msgs, delay):
         except:
             continue
 
-async def sendEmbed(ctx, title, description, color, time):
-    embedVar = discord.Embed(title=title, description=description, color=color)
-    msg = await ctx.send(embed=embedVar)
-    await helpers.delMessages([ctx.message, msg], time)
+async def sendEmbedDel(ctx, title, description, color, time):
+	embedVar = discord.Embed(title=title, description=description, color=color)
+	msg = await ctx.send(embed=embedVar)
+	await helpers.delMessages([ctx.message, msg], time)
+	return msg
+
+async def sendEmbed(channel, title, description, color):
+	embedVar = discord.Embed(title=title, description=description, color=color)
+	msg = await channel.send(embed=embedVar)
+	return msg
 
 def toOneString(*args):
 	tx = ''

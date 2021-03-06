@@ -13,4 +13,4 @@ async def command_help(ctx):
 		desc += '`ccremove <vc id>` Macht den angegebenen vc wieder zu einem normalen vc\n'
 		desc += '`cclist` Zeigt eine Liste der creator-channel\n'
 		color=0xFF0099
-		await helpers.sendEmbed(ctx, "Help - prefix = ss!", desc, color, 30)
+		await helpers.sendEmbedDel(ctx, "Help - prefix = ss!", desc, color, 30)

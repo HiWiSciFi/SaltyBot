@@ -20,6 +20,9 @@ if not f'created vcs' in globals.data:
 if not f'created tcs' in globals.data:
 	globals.data[f'created tcs'] = {}
 
+if not f'cconfig msgs' in globals.data:
+	globals.data[f'cconfig msgs'] = {}
+
 if not f'channel enumerations' in globals.data:
 	globals.data[f'channel enumerations'] = {}
 
@@ -36,6 +39,7 @@ globals.bot.remove_command('help')
 # import events
 from events import ready
 from events import voice_state_update
+from events import reaction_add
 
 # import commands
 from commands import help

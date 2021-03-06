@@ -1,6 +1,5 @@
 from utils import globals
-from utils import data
-import discord
+from utils import helpers
 
 async def createChannels(member, origChannel):
 	# fetch pre- channel creation data
@@ -27,19 +26,29 @@ async def createChannels(member, origChannel):
 		channelname += savedchannelname[i]
 		ignore = False
 
-	# create the actual channels
+	# create the vc
 	created_vc = await server.create_voice_channel(channelname, category=origChannel.category, sync_permissions=True)
+
+	# create the tc
 	created_tc = await server.create_text_channel(channelname, category=origChannel.category, sync_permissions=False)
-	await created_tc.set_permissions(server.me, view_channel=True)
-	await created_tc.set_permissions(server.default_role, view_channel=False)
+
+	# send configuration message
+	configMsg = await helpers.sendEmbed(created_tc, channelname, f'react with 🔒 to make the voice channel private and prevent anyone else from joining', globals.defaultcolor)
+	await configMsg.add_reaction("🔒");
 
 	# save data to file
 	globals.data[f'created vcs'][f'{created_vc.id}'] = f'{created_tc.id}'
 	globals.data[f'created tcs'][f'{created_tc.id}'] = f'{created_vc.id}'
-	data.save()
+	globals.data[f'cconfig msgs'][f'{created_tc.id}'] = f'{configMsg.id}'
 
 	# move creator to created channel
 	await member.move_to(created_vc)
+
+	# set access permissions
+	await created_tc.set_permissions(server.me, view_channel=True)
+	await created_vc.set_permissions(server.me, view_channel=True)
+	await created_tc.set_permissions(server.default_role, view_channel=False)
+	await created_vc.set_permissions(server.default_role, view_channel=True)
 
 async def deleteChannelsIfEmpty(vc):
 	# if there is noone in the vc
@@ -55,10 +64,10 @@ async def deleteChannelsIfEmpty(vc):
 		# save data to file
 		del globals.data[f'created vcs'][f'{vc.id}']
 		del globals.data[f'created tcs'][f'{tc.id}']
-		data.save()
+		del globals.data[f'cconfig msgs'][f'{tc.id}']
 
-async def setTextChannelAccess(user, vcID, viewChannel):
-	# get tc by id
+async def setChannelAccess(user, vcID, viewChannel):
+	# get channels
 	tc = globals.bot.get_channel(int(globals.data[f'created vcs'][f'{vcID}']))
 
 	# set permission
