@@ -33,8 +33,9 @@ async def createChannels(member, origChannel):
 	created_tc = await server.create_text_channel(channelname, category=origChannel.category, sync_permissions=False)
 
 	# send configuration message
-	configMsg = await helpers.sendEmbed(created_tc, channelname, f'react with 🔒 to make the voice channel private and prevent anyone else from joining', globals.defaultcolor)
+	configMsg = await helpers.sendEmbed(created_tc, channelname, f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!', globals.defaultcolor)
 	await configMsg.add_reaction("🔒");
+	await configMsg.add_reaction("🔓");
 
 	# save data to file
 	globals.data[f'created vcs'][f'{created_vc.id}'] = f'{created_tc.id}'
