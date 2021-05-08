@@ -32,6 +32,12 @@ async def createChannels(member, origChannel):
 	# create the tc
 	created_tc = await server.create_text_channel(channelname, category=origChannel.category, sync_permissions=False)
 
+	# set access permissions
+	await created_tc.set_permissions(server.me, view_channel=True)
+	await created_vc.set_permissions(server.me, view_channel=True)
+	await created_tc.set_permissions(server.default_role, view_channel=False)
+	await created_vc.set_permissions(server.default_role, view_channel=True)
+
 	# send configuration message
 	configMsg = await helpers.sendEmbed(created_tc, channelname, f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!', globals.defaultcolor)
 	await configMsg.add_reaction("🔒");
@@ -45,11 +51,7 @@ async def createChannels(member, origChannel):
 	# move creator to created channel
 	await member.move_to(created_vc)
 
-	# set access permissions
-	await created_tc.set_permissions(server.me, view_channel=True)
-	await created_vc.set_permissions(server.me, view_channel=True)
-	await created_tc.set_permissions(server.default_role, view_channel=False)
-	await created_vc.set_permissions(server.default_role, view_channel=True)
+	
 
 async def deleteChannelsIfEmpty(vc):
 	# if there is noone in the vc
