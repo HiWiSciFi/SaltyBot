@@ -39,7 +39,7 @@ async def createChannels(member, origChannel):
 	await created_vc.set_permissions(server.default_role, view_channel=True)
 
 	# send configuration message
-	configMsg = await helpers.sendEmbed(created_tc, channelname, f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!', globals.defaultcolor)
+	configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: \`unlocked\`', globals.defaultcolor)
 	await configMsg.add_reaction("🔒");
 	await configMsg.add_reaction("🔓");
 
@@ -51,7 +51,7 @@ async def createChannels(member, origChannel):
 	# move creator to created channel
 	await member.move_to(created_vc)
 
-	
+
 
 async def deleteChannelsIfEmpty(vc):
 	# if there is noone in the vc

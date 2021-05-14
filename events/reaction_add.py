@@ -22,9 +22,7 @@ async def on_reaction_add(reaction, user):
 				# reset reactions
 				await reaction.remove(user)
 				# send channel feedback
-				msg = await helpers.sendEmbed(tc, f'Changed Channel visibility', 'locked', globals.defaultcolor)
-				# delete message delayed
-				await helpers.delMessages([msg], 1)
+				await reaction.message.edit(embed=helpers.getEmbed("Channel Configuration", f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: \`locked\`', globals.defaultcolor))
 
 			# if reaction was unlock
 			elif reaction.emoji == "🔓":
@@ -37,9 +35,7 @@ async def on_reaction_add(reaction, user):
 				# reset reactions
 				await reaction.remove(user)
 				# send channel feedback
-				msg = await helpers.sendEmbed(tc, f'Changed Channel visibility', 'unlocked', globals.defaultcolor)
-				# delete message delayed
-				await helpers.delMessages([msg], 1)
+				await reaction.message.edit(embed=helpers.getEmbed("Channel Configuration", f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: \`unlocked\`', globals.defaultcolor))
 
 			# remove unrelevant reactions
 			else:

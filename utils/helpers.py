@@ -9,6 +9,9 @@ async def delMessages(msgs, delay):
         except:
             continue
 
+def getEmbed(title, description, color):
+	return discord.Embed(title=title, description=description, color=color)
+
 async def sendEmbedDel(ctx, title, description, color, time):
 	embedVar = discord.Embed(title=title, description=description, color=color)
 	msg = await ctx.send(embed=embedVar)
