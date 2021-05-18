@@ -5,9 +5,27 @@ async def createChannels(member, origChannel):
 	# fetch pre- channel creation data
 	server = origChannel.guild
 	savedchannelname = globals.data[f'creation vcs'][f'{origChannel.id}']
-	channelname = ''
+	channelname = '-'
+
+	# create the vc
+	created_vc = await server.create_voice_channel(channelname, category=origChannel.category, sync_permissions=True)
+
+	# move creator to created channel
+	await member.move_to(created_vc)
+
+	# create the tc
+	created_tc = await server.create_text_channel(channelname, category=origChannel.category, sync_permissions=False)
+
+	# save data to file
+	globals.data[f'created vcs'][f'{created_vc.id}'] = f'{created_tc.id}'
+	globals.data[f'created tcs'][f'{created_tc.id}'] = f'{created_vc.id}'
+
+	# send configuration message
+	configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked', globals.defaultcolor)
+	globals.data[f'cconfig msgs'][f'{created_tc.id}'] = f'{configMsg.id}'
 
 	# get special name queues
+	channelname = ''
 	ignore = False
 	for i in range(0, len(savedchannelname)):
 		if not ignore:
@@ -26,11 +44,9 @@ async def createChannels(member, origChannel):
 		channelname += savedchannelname[i]
 		ignore = False
 
-	# create the vc
-	created_vc = await server.create_voice_channel(channelname, category=origChannel.category, sync_permissions=True)
-
-	# create the tc
-	created_tc = await server.create_text_channel(channelname, category=origChannel.category, sync_permissions=False)
+	# update channel names
+	await created_vc.edit(name=channelname)
+	await created_tc.edit(name=channelname)
 
 	# set access permissions
 	await created_tc.set_permissions(server.me, view_channel=True)
@@ -38,22 +54,19 @@ async def createChannels(member, origChannel):
 	await created_tc.set_permissions(server.default_role, view_channel=False)
 	await created_vc.set_permissions(server.default_role, view_channel=True)
 
-	# send configuration message
-	configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked', globals.defaultcolor)
+	# add reactions to config msg
 	await configMsg.add_reaction("🔒");
 	await configMsg.add_reaction("🔓");
 
-	# save data to file
-	globals.data[f'created vcs'][f'{created_vc.id}'] = f'{created_tc.id}'
-	globals.data[f'created tcs'][f'{created_tc.id}'] = f'{created_vc.id}'
-	globals.data[f'cconfig msgs'][f'{created_tc.id}'] = f'{configMsg.id}'
-
-	# move creator to created channel
-	await member.move_to(created_vc)
+	# debug log
+	print(f'User \"{member.name}\" created channel \"{channelname}\"')
 
 async def deleteChannelsIfEmpty(vc):
 	# if there is noone in the vc
 	if len(vc.members) < 1:
+
+		# get channel name
+		channelname = vc.name
 
 		# get tc by id
 		tc = globals.bot.get_channel(int(globals.data[f'created vcs'][f'{vc.id}']))
@@ -66,6 +79,8 @@ async def deleteChannelsIfEmpty(vc):
 		del globals.data[f'created vcs'][f'{vc.id}']
 		del globals.data[f'created tcs'][f'{tc.id}']
 		del globals.data[f'cconfig msgs'][f'{tc.id}']
+
+		print(f'Channel \"{channelname}\" has been deleted')
 
 async def setChannelAccess(user, vcID, viewChannel):
 	# get channels

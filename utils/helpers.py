@@ -13,13 +13,12 @@ def getEmbed(title, description, color):
 	return discord.Embed(title=title, description=description, color=color)
 
 async def sendEmbedDel(ctx, title, description, color, time):
-	embedVar = discord.Embed(title=title, description=description, color=color)
-	msg = await ctx.send(embed=embedVar)
+	msg = sendEmbed(ctx, title, description, color)
 	await delMessages([ctx.message, msg], time)
 	return msg
 
 async def sendEmbed(channel, title, description, color):
-	embedVar = discord.Embed(title=title, description=description, color=color)
+	embedVar = getEmbed(title, description, color)
 	msg = await channel.send(embed=embedVar)
 	return msg
 
