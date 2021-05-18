@@ -20,14 +20,16 @@ async def createChannels(member, origChannel):
 	globals.data[f'created vcs'][f'{created_vc.id}'] = f'{created_tc.id}'
 	globals.data[f'created tcs'][f'{created_tc.id}'] = f'{created_vc.id}'
 
+	# set tc access permissions
+	await created_tc.set_permissions(server.me, view_channel=True)
+	await created_tc.set_permissions(server.default_role, view_channel=False)
+
 	# send configuration message
 	configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked', globals.defaultcolor)
 	globals.data[f'cconfig msgs'][f'{created_tc.id}'] = f'{configMsg.id}'
 
-	# set access permissions
-	await created_tc.set_permissions(server.me, view_channel=True)
+	# set vc access permissions
 	await created_vc.set_permissions(server.me, view_channel=True)
-	await created_tc.set_permissions(server.default_role, view_channel=False)
 	await created_vc.set_permissions(server.default_role, view_channel=True)
 
 	# get special name queues
