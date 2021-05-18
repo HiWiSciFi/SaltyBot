@@ -14,7 +14,7 @@ async def on_voice_state_update(member, before, after):
 				# create vc and tc
 				await channelutils.createChannels(member, after.channel)
 			# if channel is a created vc
-			if f'{after.channel.id}' in globals.data[f'created vcs']:
+			elif f'{after.channel.id}' in globals.data[f'created vcs']:
 				# add access permission
 				await channelutils.setChannelAccess(member, after.channel.id, True)
 
@@ -45,7 +45,7 @@ async def on_voice_state_update(member, before, after):
 				# create new vc
 				await channelutils.createChannels(member, after.channel)
 			# if channel is a created vc
-			if f'{after.channel.id}' in globals.data[f'created vcs']:
+			elif f'{after.channel.id}' in globals.data[f'created vcs']:
 				# add access permission
 				await channelutils.setChannelAccess(member, after.channel.id, True)
 
