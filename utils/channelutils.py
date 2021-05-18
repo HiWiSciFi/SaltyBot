@@ -24,6 +24,12 @@ async def createChannels(member, origChannel):
 	configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", f'react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked', globals.defaultcolor)
 	globals.data[f'cconfig msgs'][f'{created_tc.id}'] = f'{configMsg.id}'
 
+	# set access permissions
+	await created_tc.set_permissions(server.me, view_channel=True)
+	await created_vc.set_permissions(server.me, view_channel=True)
+	await created_tc.set_permissions(server.default_role, view_channel=False)
+	await created_vc.set_permissions(server.default_role, view_channel=True)
+
 	# get special name queues
 	channelname = ''
 	ignore = False
@@ -47,12 +53,6 @@ async def createChannels(member, origChannel):
 	# update channel names
 	await created_vc.edit(name=channelname)
 	await created_tc.edit(name=channelname)
-
-	# set access permissions
-	await created_tc.set_permissions(server.me, view_channel=True)
-	await created_vc.set_permissions(server.me, view_channel=True)
-	await created_tc.set_permissions(server.default_role, view_channel=False)
-	await created_vc.set_permissions(server.default_role, view_channel=True)
 
 	# add reactions to config msg
 	await configMsg.add_reaction("🔒");
