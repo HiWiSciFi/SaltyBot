@@ -60,6 +60,10 @@ async def createChannels(member, origChannel):
 	await configMsg.add_reaction("🔒");
 	await configMsg.add_reaction("🔓");
 
+	# add tc and vc access for creator
+	await created_tc.set_permissions(member, view_channel=True)
+	await created_vc.set_permissions(member, view_channel=True)
+
 	# debug log
 	print(f'User \"{member.name}\" created channel \"{channelname}\"')
 
