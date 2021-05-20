@@ -57,12 +57,15 @@ async def createChannels(member, origChannel):
 	await created_tc.edit(name=channelname)
 
 	# add reactions to config msg
-	await configMsg.add_reaction("🔒");
-	await configMsg.add_reaction("🔓");
+	await configMsg.add_reaction("🔒")
+	await configMsg.add_reaction("🔓")
 
 	# add tc and vc access for creator
 	await created_tc.set_permissions(member, view_channel=True)
 	await created_vc.set_permissions(member, view_channel=True)
+
+	# add hydra permission
+	await created_vc.set_permissions(discord.utils.get(server.roles, name="Hydra"), view_channel=True)
 
 	# debug log
 	print(f'User \"{member.name}\" created channel \"{channelname}\"')
