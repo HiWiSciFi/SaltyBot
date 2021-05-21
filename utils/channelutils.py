@@ -1,3 +1,4 @@
+import discord
 from utils import globals
 from utils import helpers
 
