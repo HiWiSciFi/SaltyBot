@@ -29,7 +29,7 @@ async def createChannels(member, origChannel):
 	globals.data[f'cconfig msgs'][f'{created_tc.id}'] = f'{configMsg.id}'
 
 	# set vc access permissions
-	await created_vc.set_permissions(server.me, view_channel=True)
+	await created_vc.set_permissions(discord.utils.get(server.roles, name="Robot"), view_channel=True)
 	await created_vc.set_permissions(server.default_role, view_channel=True)
 
 	# get special name queues
@@ -65,7 +65,7 @@ async def createChannels(member, origChannel):
 	await created_vc.set_permissions(member, view_channel=True)
 
 	# add hydra permission
-	await created_vc.set_permissions(discord.utils.get(server.roles, name="Hydra"), view_channel=True)
+	#await created_vc.set_permissions(discord.utils.get(server.roles, name="Hydra"), view_channel=True)
 
 	# debug log
 	print(f'User \"{member.name}\" created channel \"{channelname}\"')
