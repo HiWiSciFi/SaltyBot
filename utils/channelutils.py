@@ -33,8 +33,8 @@ async def createChannels(member, origChannel):
 	await created_vc.set_permissions(discord.utils.get(server.roles, name="Robot"), view_channel=True)
 
 	# move channels to category
-	await created_vc.edit(category=origChannel.category);
-	await created_tc.edit(category=origChannel.category);
+	await created_vc.edit(category=origChannel.category)
+	await created_tc.edit(category=origChannel.category)
 
 	# get special name queues
 	channelname = ''
