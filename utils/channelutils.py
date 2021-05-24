@@ -9,13 +9,13 @@ async def createChannels(member, origChannel):
 	channelname = '-'
 
 	# create the vc
-	created_vc = await server.create_voice_channel(channelname, category=origChannel.category, sync_permissions=True)
+	created_vc = await server.create_voice_channel(channelname, sync_permissions=True)
 
 	# move creator to created channel
 	await member.move_to(created_vc)
 
 	# create the tc
-	created_tc = await server.create_text_channel(channelname, category=origChannel.category, sync_permissions=False)
+	created_tc = await server.create_text_channel(channelname, sync_permissions=False)
 
 	# save data to file
 	globals.data[f'created vcs'][f'{created_vc.id}'] = f'{created_tc.id}'
@@ -31,6 +31,10 @@ async def createChannels(member, origChannel):
 
 	# set vc access permissions
 	await created_vc.set_permissions(discord.utils.get(server.roles, name="Robot"), view_channel=True)
+
+	# move channels to category
+	await created_vc.edit(category=origChannel.category);
+	await created_tc.edit(category=origChannel.category);
 
 	# get special name queues
 	channelname = ''
