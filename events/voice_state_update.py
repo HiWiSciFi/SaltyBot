@@ -17,6 +17,7 @@ async def on_voice_state_update(member, before, after):
 			elif f'{after.channel.id}' in globals.data[f'created vcs']:
 				# add access permission
 				await channelutils.setChannelAccess(member, after.channel.id, True)
+			# add current open hydra access
 
 	# if disconnected from a channel
 	elif before.channel and not after.channel and f'{before.channel.guild.id}' in globals.data[f'permitted servers']:
@@ -26,6 +27,7 @@ async def on_voice_state_update(member, before, after):
 			await channelutils.setChannelAccess(member, before.channel.id, False)
 			# delete the vc if it is empty
 			await channelutils.deleteChannelsIfEmpty(before.channel)
+		# remove current open hydra access
 
 	# if switched to another channel
 	elif before.channel and after.channel:

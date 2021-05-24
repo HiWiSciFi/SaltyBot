@@ -31,7 +31,6 @@ async def createChannels(member, origChannel):
 
 	# set vc access permissions
 	await created_vc.set_permissions(discord.utils.get(server.roles, name="Robot"), view_channel=True)
-	await created_vc.set_permissions(server.default_role, view_channel=True)
 
 	# get special name queues
 	channelname = ''
