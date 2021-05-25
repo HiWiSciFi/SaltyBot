@@ -4,6 +4,11 @@ client.on('voiceStateUpdate', async (before, after) => {
 		return;
 	}
 
+	// cancel if same channel
+	if (before.channel === after.channel) {
+		return;
+	}
+
 	// cancel if moved from a creation channel
 	if (before.channel !== null) {
 		if (`${before.guild.id}` === permittedServer) {

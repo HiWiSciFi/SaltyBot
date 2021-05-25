@@ -1,10 +1,10 @@
 global.fs = require('fs');
 
 global.data_creationVcs = {};
-global.data_createdVcs = {};
-global.data_createdTcs = {};
+global.data_createdVcs = {}; // GuildChannel - vc : GuildChannel - tc
+global.data_createdTcs = {}; // GuildChannel - tc : GuildChannel - vc
 
-global.data_configMsgs = {};
+global.data_configMsgs = {}; // Message - configMsg : GuildChannel - tc
 
 const loadCreationVcs = () => {
 	fs.readFile('creationVcs.json', 'utf-8', (err, data) => {
