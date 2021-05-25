@@ -6,9 +6,12 @@ module.exports = {
 	permissions: ["MANAGE_CHANNELS"],
 	callback: ({}) => {
 		embed = new Discord.MessageEmbed()
-			.setTitle('Error!')
-			.setDescription('Command not yet implemented!')
+			.setTitle('cclist command')
+			.setDescription('List of creation channels')
 			.setColor(defaultcolor);
+		for (let k in data_creationVcs) {
+			embed.addFields({name: k, value: data_creationVcs[k], inline: true});
+		}
 		return embed;
 	}
 };

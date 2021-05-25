@@ -19,8 +19,6 @@ dataHandler.loadCreationVcs();
 global.helpers = require('./utils/helpers');
 global.channelutils = require('./utils/channelutils');
 
-// register commands
-
 // register events
 require('./events/ready');
 require('./events/voice_state_update');

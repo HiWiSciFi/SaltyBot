@@ -2,12 +2,19 @@ module.exports = {
 	slash: true,
 	testOnly: true,
 	description: 'Create a creation channel',
-	guildOnly: true,
+	minArgs: 2,
+	expectedArgs: "<channelid> <channelname>",
 	permissions: ["MANAGE_CHANNELS"],
-	callback: ({}) => {
+	guildOnly: true,
+	callback: ({ message, args }) => {
+		const [channelid, name] = args;
+
+		data_creationVcs[channelid] = name;
+		dataHandler.saveCreationVcs();
+
 		embed = new Discord.MessageEmbed()
-			.setTitle('Error!')
-			.setDescription('Command not yet implemented!')
+			.setTitle('Creation vc created!')
+			.setDescription(`Channel with ID ${channelid} turned into a creation vc with standard name \"${name}\"!`)
 			.setColor(defaultcolor);
 		return embed;
 	}
