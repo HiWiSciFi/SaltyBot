@@ -1,4 +1,5 @@
 client.on('messageReactionAdd', async (reaction, user) => {
+    if(user.id === global.client.user.id) return;
 
     if(global.data_configMsgs?.[reaction.message.channel] === reaction.message.id){
         switch (reaction.emoji.toString()) {
@@ -9,8 +10,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
                 console.log("🔓");
                 break;
         }
-        var reomve = reaction.remove();
+        var remove = reaction.users.remove(user);
     }
-
-    await reomve;
+    await remove;
 });
