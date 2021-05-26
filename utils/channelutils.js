@@ -37,16 +37,16 @@ async function createChannel(creationChannel, member) {
 	for (var i = 0; i < savedchannelname.length; i++) {
 		let cc = savedchannelname.charAt(i);
 		if (!ignore) {
-			if (savedchannelname.charAt(i) === '\\') {
+			if (cc === '\\') {
 				ignore = true;
 				continue;
 			}
-			else if (savedchannelname.charAt(i) === '°') {
+			else if (cc === '°') {
 				channelname += member.user.username;
 				continue;
 			}
 		}
-		channelname += savedchannelname.charAt(i);
+		channelname += cc;
 		ignore = false;
 	}
 
