@@ -1,5 +1,4 @@
 async function createChannel(creationChannel, member) {
-	console.log("creating channel");
 	// fetch name data
 	let savedchannelname = data_creationVcs[`${creationChannel.id}`];
 	let channelname = "-";
@@ -7,8 +6,7 @@ async function createChannel(creationChannel, member) {
 	// create vc
 	let created_vc = await creationChannel.guild.channels.create(channelname, {
 		type: 'voice',
-		parent: creationChannel.parent,
-		reason: `Channel creation requested by ${member.user.username}`
+		parent: creationChannel.parent
 	});
 
 	// move creator to channel
@@ -17,8 +15,7 @@ async function createChannel(creationChannel, member) {
 	// create tc
 	let created_tc = await creationChannel.guild.channels.create(channelname, {
 		type: 'text',
-		parent: creationChannel.parent,
-		reason: `Channel creation requested by ${member.user.username}`
+		parent: creationChannel.parent
 	});
 
 	// save channel references
@@ -32,15 +29,13 @@ async function createChannel(creationChannel, member) {
 		if (tcpermow.id !== client.user.id) tcpermow.delete();
 	});
 	await created_tc.createOverwrite(creationChannel.guild.roles.everyone, {VIEW_CHANNEL: false});
-
-	// send configuration message
-	let configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", "react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked", defaultcolor);
-	data_configMsgs[created_tc] = configMsg;
+	await created_tc.createOverwrite(member.user, {VIEW_CHANNEL: true});
 
 	// assemble channel name
 	channelname = '';
 	ignore = false;
 	for (var i = 0; i < savedchannelname.length; i++) {
+		let cc = savedchannelname.charAt(i);
 		if (!ignore) {
 			if (savedchannelname.charAt(i) === '\\') {
 				ignore = true;
@@ -59,12 +54,13 @@ async function createChannel(creationChannel, member) {
 	await created_vc.edit({name: channelname});
 	await created_tc.edit({name: channelname});
 
+	// send configuration message
+	let configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", "react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked", defaultcolor);
+	data_configMsgs[created_tc] = configMsg;
+
 	// add reactions to config msg
 	await configMsg.react('🔒');
 	await configMsg.react('🔓');
-
-	// add tc access for creator
-	await created_tc.createOverwrite(member.user, {VIEW_CHANNEL: true});
 
 	// log creation
 	console.log(`User ${member.user.username} created Channel \"${channelname}\"`);
