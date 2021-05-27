@@ -1,8 +1,8 @@
 const WOKCommands = require('wokcommands');
 
-client.once('ready', async () => {
-	client.user.setActivity('salt', {type: 'LISTENING'});
-	console.log(`${client.user.username} successfully connected to Discord!`);
+global.client.once('ready', async () => {
+	global.client.user.setActivity('salt', {type: 'LISTENING'});
+	console.log(`${global.client.user.username} successfully connected to Discord!`);
 
 	new WOKCommands(client, {
 		commandsDir: 'commands',

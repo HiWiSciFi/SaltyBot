@@ -9,48 +9,48 @@ module.exports = {
 		const [command] = args;
 
 		if (command === undefined) {
-			embed = new Discord.MessageEmbed()
+			embed = new global.Discord.MessageEmbed()
 				.setTitle('')
 				.setDescription('')
-				.setAuthor("Help Command", client.user.avatarURL())
+				.setAuthor("Help Command", global.client.user.avatarURL())
 				.addFields({name: "Everyone Commands", value: "\`/help\`"})
 				.addFields({name: "Admin Commands", value: "\`/cccreate\`, \`/cclist\`, \`/ccremove\`"})
-				.setColor(defaultcolor);
+				.setColor(global.defaultcolor);
 			return embed;
 		} else {
 			if (command.toLowerCase() === 'help' || command.toLowerCase() === '/help') {
-				embed = new Discord.MessageEmbed()
+				embed = new global.Discord.MessageEmbed()
 					.setTitle('help Command')
 					.setDescription('List all available commands')
 					.addFields({name: "Usage", value: "\`/help [Command]\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			} else if (command.toLowerCase() === 'cccreate' || command.toLowerCase() === '/cccreate') {
-				embed = new Discord.MessageEmbed()
+				embed = new global.Discord.MessageEmbed()
 					.setTitle('cccreate Command')
 					.setDescription('Create a creation channel')
 					.addFields({name: "Usage", value: "\`/cccreate <ChannelID> <Name for created channels>\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			} else if (command.toLowerCase() === 'cclist' || command.toLowerCase() === '/cclist') {
-				embed = new Discord.MessageEmbed()
+				embed = new global.Discord.MessageEmbed()
 					.setTitle('cclist Command')
 					.setDescription('List all creation channels')
 					.addFields({name: "Usage", value: "\`/cclist\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			} else if (command.toLowerCase() === 'ccremove' || command.toLowerCase() === '/ccremove') {
-				embed = new Discord.MessageEmbed()
+				embed = new global.Discord.MessageEmbed()
 					.setTitle('ccremove Command')
 					.setDescription('Delete a creation channel')
 					.addFields({name: "Usage", value: "\`/ccremove <ChannelID>\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			} else {
-				embed = new Discord.MessageEmbed()
+				embed = new global.Discord.MessageEmbed()
 					.setTitle('Error!')
 					.setDescription(`No command by the name of \"${command}\" found!`)
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			}
 		}

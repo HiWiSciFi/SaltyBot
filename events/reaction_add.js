@@ -1,4 +1,4 @@
-client.on('messageReactionAdd', async (reaction, user) => {
+global.client.on('messageReactionAdd', async (reaction, user) => {
 
     if(global.data_configMsgs?.[reaction.message.channel] === reaction.message.id){
         switch (reaction.emoji.toString()) {

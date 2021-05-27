@@ -1,7 +1,7 @@
 global.defaultcolor = 0x3DA894;
 
 function getEmbed(title, description, color) {
-	return new Discord.MessageEmbed()
+	return new global.Discord.MessageEmbed()
 	.setTitle(title)
 	.setDescription(description)
 	.setColor(color);

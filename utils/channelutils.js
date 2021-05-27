@@ -1,6 +1,6 @@
 async function createChannel(creationChannel, member) {
 	// fetch name data
-	let savedchannelname = data_creationVcs[`${creationChannel.id}`];
+	let savedchannelname = global.data_creationVcs[`${creationChannel.id}`];
 	let channelname = "-";
 
 	// create vc
@@ -19,8 +19,8 @@ async function createChannel(creationChannel, member) {
 	});
 
 	// save channel references
-	data_createdVcs[created_vc] = created_tc;
-	data_createdTcs[created_tc] = created_vc;
+	global.data_createdVcs[created_vc] = created_tc;
+	global.data_createdTcs[created_tc] = created_vc;
 
 	// set tc permissions
 	await created_tc.createOverwrite(client.user, {VIEW_CHANNEL: true});
@@ -33,7 +33,7 @@ async function createChannel(creationChannel, member) {
 
 	// assemble channel name
 	channelname = '';
-	ignore = false;
+	let ignore = false;
 	for (var i = 0; i < savedchannelname.length; i++) {
 		let cc = savedchannelname.charAt(i);
 		if (!ignore) {
@@ -55,8 +55,8 @@ async function createChannel(creationChannel, member) {
 	await created_tc.edit({name: channelname});
 
 	// send configuration message
-	let configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", "react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked", defaultcolor);
-	data_configMsgs[created_tc] = configMsg.id;
+	let configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", "react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked", global.defaultcolor);
+	global.data_configMsgs[created_tc] = configMsg.id;
 
 	// add reactions to config msg
 	await configMsg.react('🔒');
@@ -72,19 +72,19 @@ async function createChannel(creationChannel, member) {
 async function removeChannelIfEmpty(channel) {
 	if (channel.members.size < 1) {
 		// get vc name
-		channelname = channel.name;
+		let channelname = channel.name;
 
 		// get tc
-		tc = data_createdVcs[channel];
+		tc = global.data_createdVcs[channel];
 
 		// delete channels
 		await channel.delete();
 		await tc.delete();
 
 		// remove from lists
-		delete data_configMsgs[tc];
-		delete data_createdTcs[tc];
-		delete data_createdVcs[channel];
+		delete global.data_configMsgs[tc];
+		delete global.data_createdTcs[tc];
+		delete global.data_createdVcs[channel];
 
 		// log channel removal
 		console.log(`Channel \"${channelname}\" has been deleted`);
@@ -92,11 +92,11 @@ async function removeChannelIfEmpty(channel) {
 };
 
 async function addPerms(voiceChannel, member) {
-	await data_createdVcs[voiceChannel].createOverwrite(member.user, {VIEW_CHANNEL: true});
+	await global.data_createdVcs[voiceChannel].createOverwrite(member.user, {VIEW_CHANNEL: true});
 };
 
 async function removePerms(voiceChannel, member) {
-	await data_createdVcs[voiceChannel].permissionOverwrites.get(member.id).delete();
+	await global.data_createdVcs[voiceChannel].permissionOverwrites.get(member.id).delete();
 };
 
 // export functions
