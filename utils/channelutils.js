@@ -62,6 +62,9 @@ async function createChannel(creationChannel, member) {
 	await configMsg.react('🔒');
 	await configMsg.react('🔓');
 
+	// delete channel if instantly quit
+	await removeChannelIfEmpty(created_vc);
+
 	// log creation
 	console.log(`User ${member.user.username} created Channel \"${channelname}\"`);
 };
