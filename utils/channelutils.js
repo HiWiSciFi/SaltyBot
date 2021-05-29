@@ -56,7 +56,7 @@ async function createChannel(creationChannel, member) {
 
 	// send configuration message
 	let configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", "react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked", defaultcolor);
-	data_configMsgs[created_tc] = configMsg.id;
+	data_configMsgs[created_tc] = configMsg;
 
 	// add reactions to config msg
 	await configMsg.react('🔒');
