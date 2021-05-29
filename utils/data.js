@@ -5,6 +5,34 @@ global.data_createdVcs = {}; // GuildChannel - vc : GuildChannel - tc
 global.data_createdTcs = {}; // GuildChannel - tc : GuildChannel - vc
 global.data_configMsgs = {}; // Message - configMsg : GuildChannel - tc
 
+global.music = {
+	tcByBot: {},
+	tcByVc: {}
+}
+
+function loadMusicTcs() {
+	fs.readFile('musicTcs.json', 'utf-8', (err, data) => {
+		if (err) {
+			throw err;
+		}
+
+		global.music.tcByBot = JSON.parse(data.toString());
+		console.log("MusicTcs loaded!");
+	});
+}
+
+function saveMusicTcs() {
+	let data = JSON.stringify(global.music.tcByBot);
+
+	fs.writeFile('musicTcs.json', data, (err) => {
+		if (err) {
+			throw err;
+		}
+
+		console.log("MusicTcs saved to JSON file!");
+	});
+}
+
 function loadCreationVcs() {
 	fs.readFile('creationVcs.json', 'utf-8', (err, data) => {
 		if (err) {
@@ -27,12 +55,6 @@ function saveCreationVcs() {
 		console.log("CreationVcs saved to JSON file!");
 	});
 }
-
-module.exports.loadCreationVcs = loadCreationVcs;
-module.exports.saveCreationVcs = saveCreationVcs;
-
-
-////////////////////////////////////////////////////////////////////////////////////////
 
 
 global.data_quoteChannelIDs = [];
@@ -60,5 +82,9 @@ function saveQuoteChannels() {
 	});
 }
 
+module.exports.loadCreationVcs = loadCreationVcs;
+module.exports.saveCreationVcs = saveCreationVcs;
 module.exports.loadQuoteChannels = loadQuoteChannels;
 module.exports.saveQuoteChannels = saveQuoteChannels;
+module.exports.loadMusicTcs = loadMusicTcs;
+module.exports.saveMusicTcs = saveMusicTcs;

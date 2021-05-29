@@ -22,16 +22,7 @@ client.on('voiceStateUpdate', async (before, after) => {
 	if (after.channel !== null) {
 		// if server is correct
 		if (`${after.guild.id}` === permittedServer) {
-			// if creation channel
-			if (`${after.channel.id}` in data_creationVcs) {
-				channelutils.createChannel(after.channel, after.member);
-			}
-
-			// if created channel
-			if (after.channel in data_createdVcs) {
-				console.log("Entered created channel!");
-				channelutils.addPerms(after.channel, after.member);
-			}
+			onJoinChannel(before, after);
 		}
 	}
 
@@ -39,12 +30,40 @@ client.on('voiceStateUpdate', async (before, after) => {
 	if (before.channel !== null) {
 		// if server is correct
 		if (`${before.guild.id}` === permittedServer) {
-			// if created vc
-			if (before.channel in data_createdVcs) {
-				console.log("Exited created channel!");
-				await channelutils.removePerms(before.channel, before.member);
-				channelutils.removeChannelIfEmpty(before.channel);
-			}
+			onExitChannel(before, after);
 		}
 	}
 });
+
+async function onJoinChannel(before, after){
+	// if creation channel
+	if (`${after.channel.id}` in data_creationVcs) {
+		channelutils.createChannel(after.channel, after.member);
+	}
+
+	// if created channel
+	if (after.channel in data_createdVcs) {
+		console.log("Entered created channel!");
+		channelutils.addPerms(after.channel, after.member);
+	}
+
+	
+	const ishydra = [547905866255433758,762764142699741195,762764216670617650,696281481395568721]
+		.includes(after.member.id);
+}
+
+async function onExitChannel(before, after){
+	// if created vc
+	if (before.channel in data_createdVcs) {
+		console.log("Exited created channel!");
+		await channelutils.removePerms(before.channel, before.member);
+		channelutils.removeChannelIfEmpty(before.channel);
+	}
+
+	const ishydra = [547905866255433758,762764142699741195,762764216670617650,696281481395568721]
+		.includes(after.member.id);
+
+	if (ishydra) {
+		//console.log(after.member)
+	}
+}
