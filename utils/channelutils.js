@@ -64,12 +64,15 @@ async function createChannel(creationChannel, member) {
 
 	// log creation
 	console.log(`User ${member.user.username} created Channel \"${channelname}\"`);
+	
+	// remove if empty
+	removeChannelIfEmpty(created_vc);
 };
 
 async function removeChannelIfEmpty(channel) {
 	if (channel.members.size < 1) {
 		// get vc name
-		channelname = channel.name;
+		let channelname = channel.name;
 
 		// get tc
 		tc = data_createdVcs[channel];
