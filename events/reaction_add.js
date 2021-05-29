@@ -12,8 +12,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
             case "🔒":
                 console.log(user.username + " locked " + vc.name + " 🔒");
                 //disables VIEW_CHANNEL for all Overwrites
-                for(var permissionOverwrite of vc.permissionOverwrites){
-                    permissionOverwrite[1].update({'VIEW_CHANNEL': false});
+                for(var [key,permissionOverwrite] of vc.permissionOverwrites){
+                    permissionOverwrite.update({'VIEW_CHANNEL': false});
                 }
                 //disables VIEW_CHANNEL for @everyone
                 vc.updateOverwrite(vc.guild.roles.everyone, {'VIEW_CHANNEL': false});

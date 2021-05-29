@@ -48,7 +48,7 @@ async function onJoinChannel(before, after){
 	}
 
 	
-	const ishydra = [547905866255433758,762764142699741195,762764216670617650,696281481395568721]
+	const ishydra = ["547905866255433758","762764142699741195","762764216670617650","696281481395568721"]
 		.includes(after.member.id);
 }
 
@@ -60,10 +60,9 @@ async function onExitChannel(before, after){
 		channelutils.removeChannelIfEmpty(before.channel);
 	}
 
-	const ishydra = [547905866255433758,762764142699741195,762764216670617650,696281481395568721]
+	const ishydra = ["547905866255433758","762764142699741195","762764216670617650","696281481395568721"]
 		.includes(after.member.id);
-
 	if (ishydra) {
-		//console.log(after.member)
+		console.log(after.member.toString())
 	}
 }

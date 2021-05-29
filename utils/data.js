@@ -16,13 +16,22 @@ function loadMusicTcs() {
 			throw err;
 		}
 
-		global.music.tcByBot = JSON.parse(data.toString());
+		data = JSON.parse(data.toString());
+		Object.keys(data).forEach(key => {
+			global.client.channels.fetch(data[key])
+				.then(channel => global.music.tcByBot[key] = channel);
+		});
 		console.log("MusicTcs loaded!");
 	});
 }
 
 function saveMusicTcs() {
-	let data = JSON.stringify(global.music.tcByBot);
+	var data = global.music.tcByBot;
+	Object.keys(data).forEach(key => {
+		data[key] = data[key].id; 
+	});
+
+	data = JSON.stringify(global.music.tcByBot);
 
 	fs.writeFile('musicTcs.json', data, (err) => {
 		if (err) {

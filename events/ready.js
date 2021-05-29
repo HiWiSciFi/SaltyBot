@@ -9,4 +9,6 @@ client.once('ready', async () => {
 		testServers: [process.env.SERVER],
 		showWarns: false
 	});
+
+	global.dataHandler.loadMusicTcs();
 });
