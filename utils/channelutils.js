@@ -89,11 +89,11 @@ async function removeChannelIfEmpty(channel) {
 };
 
 async function addPerms(voiceChannel, member) {
-	data_createdVcs[voiceChannel].createOverwrite(member.user, {VIEW_CHANNEL: true});
+	await data_createdVcs[voiceChannel].createOverwrite(member.user, {VIEW_CHANNEL: true});
 };
 
 async function removePerms(voiceChannel, member) {
-	data_createdVcs?.[voiceChannel].permissionOverwrites.get(member.id).delete();
+	await data_createdVcs[voiceChannel].permissionOverwrites.get(member.id).delete();
 };
 
 // export functions

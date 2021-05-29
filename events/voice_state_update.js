@@ -42,7 +42,7 @@ client.on('voiceStateUpdate', async (before, after) => {
 			// if created vc
 			if (before.channel in data_createdVcs) {
 				console.log("Exited created channel!");
-				channelutils.removePerms(before.channel, before.member);
+				await channelutils.removePerms(before.channel, before.member);
 				channelutils.removeChannelIfEmpty(before.channel);
 			}
 		}
