@@ -1,3 +1,4 @@
+global.errorcolor = 0xB81512;
 global.defaultcolor = 0x3DA894;
 
 function getEmbed(title, description, color) {

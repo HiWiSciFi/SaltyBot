@@ -13,20 +13,20 @@ module.exports = {
 			embed = new Discord.MessageEmbed()
 				.setTitle('Confirm')
 				.setDescription(`Do you really want to update the bot? If so, type \`/update true\``)
-				.setColor(defaultcolor);
+				.setColor(global.defaultcolor);
 			return embed;
 		} else if (confirm.toLowerCase() === "true") {
 			require('../utils/updater').update();
 			embed = new Discord.MessageEmbed()
 				.setTitle('Bot updated!')
 				.setDescription(`The Bot has been updated to the newest version available [here](https://github.com/hiwiscifi/SaltyBot).`)
-				.setColor(defaultcolor);
+				.setColor(global.defaultcolor);
 			return embed;
 		} else {
 			embed = new Discord.MessageEmbed()
 				.setTitle('Error')
 				.setDescription(`Wrong command syntax! Please type \`/help update\` for syntax information!`)
-				.setColor(defaultcolor);
+				.setColor(global.errorcolor);
 			return embed;
 		}
 	}

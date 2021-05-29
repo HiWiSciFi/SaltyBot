@@ -33,11 +33,13 @@ function update() {
 	
 		console.log('reloading dataHandler and helpers');
 		global.dataHandler = require('./data');
-		dataHandler.loadCreationVcs();
+		global.dataHandler.loadCreationVcs();
+		global.dataHandler.loadQuoteChannels();
 		global.helpers = require('./helpers');
 		global.channelutils = require('./channelutils');
 	
 		console.log('reloading events');
+		require('../events/ready');
 		require('../events/voice_state_update');
 		require('../events/reaction_add');
 	

@@ -17,6 +17,7 @@ module.exports = {
 				.addFields({name: "Admin Commands", value: "\`/cccreate\`, \`/cclist\`, \`/ccremove\`, \`/update\`"})
 				.setColor(global.defaultcolor);
 			return embed;
+			
 		} else {
 			if (command.toLowerCase() === 'help' || command.toLowerCase() === '/help') {
 				embed = new Discord.MessageEmbed()
@@ -25,6 +26,7 @@ module.exports = {
 					.addFields({name: "Usage", value: "\`/help [Command]\`"})
 					.setColor(global.defaultcolor);
 				return embed;
+				
 			} else if (command.toLowerCase() === 'cccreate' || command.toLowerCase() === '/cccreate') {
 				embed = new Discord.MessageEmbed()
 					.setTitle('cccreate Command')
@@ -32,6 +34,7 @@ module.exports = {
 					.addFields({name: "Usage", value: "\`/cccreate <ChannelID> <Name for created channels>\`"})
 					.setColor(global.defaultcolor);
 				return embed;
+				
 			} else if (command.toLowerCase() === 'cclist' || command.toLowerCase() === '/cclist') {
 				embed = new Discord.MessageEmbed()
 					.setTitle('cclist Command')
@@ -39,6 +42,7 @@ module.exports = {
 					.addFields({name: "Usage", value: "\`/cclist\`"})
 					.setColor(global.defaultcolor);
 				return embed;
+				
 			} else if (command.toLowerCase() === 'ccremove' || command.toLowerCase() === '/ccremove') {
 				embed = new Discord.MessageEmbed()
 					.setTitle('ccremove Command')
@@ -46,18 +50,52 @@ module.exports = {
 					.addFields({name: "Usage", value: "\`/ccremove <ChannelID>\`"})
 					.setColor(global.defaultcolor);
 				return embed;
+				
 			} else if (command.toLowerCase() === 'update' || command.toLowerCase() === '/ccremove') {
 				embed = new Discord.MessageEmbed()
 					.setTitle('update Command')
 					.setDescription('Update the bot code (except for the main file, the discord api and commands)')
-					.addFields({name: "", value: "\`/update [confirm?]\`"})
+					.addFields({name: "Usage", value: "\`/update [confirm?]\`"})
 					.setColor(global.defaultcolor);
 				return embed;
+				
+			} else if (command.toLowerCase() === 'qccreate' || command.toLowerCase() === '/qccreate') {
+				embed = new Discord.MessageEmbed()
+					.setTitle('qccreate Command')
+					.setDescription('Create a quote channel')
+					.addFields({name: "Usage", value: "\`/qccreate <ChannelID>\`"})
+					.setColor(global.defaultcolor);
+				return embed;
+				
+			} else if (command.toLowerCase() === 'qclist' || command.toLowerCase() === '/qclist') {
+				embed = new Discord.MessageEmbed()
+					.setTitle('qclist Command')
+					.setDescription('List all quote channels')
+					.addFields({name: "Usage", value: "\`/qclist\`"})
+					.setColor(global.defaultcolor);
+				return embed;
+				
+			} else if (command.toLowerCase() === 'qcremove' || command.toLowerCase() === '/qcremove') {
+				embed = new Discord.MessageEmbed()
+					.setTitle('qcremove Command')
+					.setDescription('Delete a quote channel')
+					.addFields({name: "Usage", value: "\`/qcremove <ChannelID>\`"})
+					.setColor(global.defaultcolor);
+				return embed;
+				
+			} else if (command.toLowerCase() === 'quote' || command.toLowerCase() === '/quote') {
+				embed = new Discord.MessageEmbed()
+					.setTitle('quote Command')
+					.setDescription('Quote an epic gamer')
+					.addFields({name: "Usage", value: "\`/quote <Name or ping> <Quote>\` (only works in dedicated channels!)"})
+					.setColor(global.defaultcolor);
+				return embed;
+				
 			} else {
 				embed = new Discord.MessageEmbed()
 					.setTitle('Error!')
 					.setDescription(`No command by the name of \"${command}\" found!`)
-					.setColor(global.defaultcolor);
+					.setColor(global.errorcolor);
 				return embed;
 			}
 		}

@@ -9,13 +9,13 @@ module.exports = {
 	callback: ({ message, args }) => {
 		const [channelid, name] = args;
 
-		data_creationVcs[channelid] = name;
-		dataHandler.saveCreationVcs();
+		global.data_creationVcs[channelid] = name;
+		global.dataHandler.saveCreationVcs();
 
 		embed = new Discord.MessageEmbed()
 			.setTitle('Creation vc created!')
 			.setDescription(`Channel with ID ${channelid} turned into a creation vc with standard name \"${name}\"!`)
-			.setColor(defaultcolor);
+			.setColor(global.defaultcolor);
 		return embed;
 	}
 };

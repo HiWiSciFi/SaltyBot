@@ -10,7 +10,8 @@ global.client = new Discord.Client();
 
 // load utils
 global.dataHandler = require('./utils/data');
-dataHandler.loadCreationVcs();
+global.dataHandler.loadCreationVcs();
+global.dataHandler.loadQuoteChannels();
 global.helpers = require('./utils/helpers');
 global.channelutils = require('./utils/channelutils');
 
@@ -20,4 +21,4 @@ require('./events/voice_state_update');
 require('./events/reaction_add');
 
 // start bot and connect to Discord
-client.login(process.env.TOKEN);
+global.client.login(process.env.TOKEN);

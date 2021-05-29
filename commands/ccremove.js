@@ -10,21 +10,21 @@ module.exports = {
 
 		const [channelid] = args;
 
-		if (!(channelid in data_creationVcs)) {
+		if (!(channelid in global.data_creationVcs)) {
 			embed = new Discord.MessageEmbed()
 				.setTitle('Creation vc could not be removed!')
 				.setDescription('There is no registered creation vc with the given ID!')
-				.setColor(defaultcolor);
+				.setColor(global.errorcolor);
 			return embed;
 		}
 
-		delete data_creationVcs[channelid];
-		dataHandler.saveCreationVcs();
+		delete global.data_creationVcs[channelid];
+		global.dataHandler.saveCreationVcs();
 
 		embed = new Discord.MessageEmbed()
 			.setTitle('Creation vc removed!')
 			.setDescription('The channel can now be used like a normal voice channel!')
-			.setColor(defaultcolor);
+			.setColor(global.defaultcolor);
 		return embed;
 	}
 };
