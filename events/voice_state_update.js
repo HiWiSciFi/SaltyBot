@@ -24,13 +24,13 @@ client.on('voiceStateUpdate', async (before, after) => {
 		if (`${after.guild.id}` === permittedServer) {
 			// if creation channel
 			if (`${after.channel.id}` in data_creationVcs) {
-				await channelutils.createChannel(after.channel, after.member);
+				channelutils.createChannel(after.channel, after.member);
 			}
 
 			// if created channel
 			if (after.channel in data_createdVcs) {
 				console.log("Entered created channel!");
-				await channelutils.addPerms(after.channel, after.member);
+				channelutils.addPerms(after.channel, after.member);
 			}
 		}
 	}
@@ -42,8 +42,8 @@ client.on('voiceStateUpdate', async (before, after) => {
 			// if created vc
 			if (before.channel in data_createdVcs) {
 				console.log("Exited created channel!");
-				await channelutils.removePerms(before.channel, before.member);
-				await channelutils.removeChannelIfEmpty(before.channel);
+				channelutils.removePerms(before.channel, before.member);
+				channelutils.removeChannelIfEmpty(before.channel);
 			}
 		}
 	}
