@@ -14,8 +14,8 @@ module.exports = {
 				.setDescription('')
 				.setAuthor("Help Command", client.user.avatarURL())
 				.addFields({name: "Everyone Commands", value: "\`/help\`"})
-				.addFields({name: "Admin Commands", value: "\`/cccreate\`, \`/cclist\`, \`/ccremove\`"})
-				.setColor(defaultcolor);
+				.addFields({name: "Admin Commands", value: "\`/cccreate\`, \`/cclist\`, \`/ccremove\`, \`/update\`"})
+				.setColor(global.defaultcolor);
 			return embed;
 		} else {
 			if (command.toLowerCase() === 'help' || command.toLowerCase() === '/help') {
@@ -23,34 +23,41 @@ module.exports = {
 					.setTitle('help Command')
 					.setDescription('List all available commands')
 					.addFields({name: "Usage", value: "\`/help [Command]\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			} else if (command.toLowerCase() === 'cccreate' || command.toLowerCase() === '/cccreate') {
 				embed = new Discord.MessageEmbed()
 					.setTitle('cccreate Command')
 					.setDescription('Create a creation channel')
 					.addFields({name: "Usage", value: "\`/cccreate <ChannelID> <Name for created channels>\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			} else if (command.toLowerCase() === 'cclist' || command.toLowerCase() === '/cclist') {
 				embed = new Discord.MessageEmbed()
 					.setTitle('cclist Command')
 					.setDescription('List all creation channels')
 					.addFields({name: "Usage", value: "\`/cclist\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			} else if (command.toLowerCase() === 'ccremove' || command.toLowerCase() === '/ccremove') {
 				embed = new Discord.MessageEmbed()
 					.setTitle('ccremove Command')
 					.setDescription('Delete a creation channel')
 					.addFields({name: "Usage", value: "\`/ccremove <ChannelID>\`"})
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
+				return embed;
+			} else if (command.toLowerCase() === 'update' || command.toLowerCase() === '/ccremove') {
+				embed = new Discord.MessageEmbed()
+					.setTitle('update Command')
+					.setDescription('Update the bot code (except for the main file, the discord api and commands)')
+					.addFields({name: "", value: "\`/update [confirm?]\`"})
+					.setColor(global.defaultcolor);
 				return embed;
 			} else {
 				embed = new Discord.MessageEmbed()
 					.setTitle('Error!')
 					.setDescription(`No command by the name of \"${command}\" found!`)
-					.setColor(defaultcolor);
+					.setColor(global.defaultcolor);
 				return embed;
 			}
 		}
