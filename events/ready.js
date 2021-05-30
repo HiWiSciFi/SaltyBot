@@ -5,8 +5,8 @@ client.once('ready', async () => {
 	// reload commands
 	reloadCommands();
 
-	await global.dataHandler.loadMusicTcs();
-	global.musicHandler.initiate();
+	// await global.dataHandler.loadMusicTcs();
+	// global.musicHandler.initiate();
 });
 
 async function reloadCommands() {
