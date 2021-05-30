@@ -1,11 +1,5 @@
-export{
-    initiate,
-    terminate,
-    isHydra
-}
-
 function initiate() {
-    tcs = Object.keys(global.tcByBot).map(bot => global.tcByBot[bot]);
+    tcs = Object.keys(global.music.tcByBot).map(bot => global.music.tcByBot[bot]);
     if(!tcs) return;
     for(var i = 1; i < tcs.length; i++) (tc = tcs[i]) => {
         //disables VIEW_CHANNEL for all Overwrites
@@ -30,3 +24,7 @@ function terminate() {
 function isHydra(user) {
     return ["547905866255433758","762764142699741195","762764216670617650","696281481395568721"].includes(user);
 }
+
+module.exports.initiate = initiate;
+module.exports.terminate = terminate;
+module.exports.isHydra = isHydra;

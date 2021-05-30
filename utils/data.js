@@ -1,4 +1,6 @@
+const { rejects } = require('assert');
 const fs = require('fs');
+const { resolve } = require('path');
 
 global.data_creationVcs = {};
 global.data_createdVcs = {}; // GuildChannel - vc : GuildChannel - tc
@@ -13,8 +15,9 @@ global.music = {
 	listeners: []
 }
 
-function loadMusicTcs() {
-	fs.readFile('musicTcs.json', 'utf-8', (err, data) => {
+async function loadMusicTcs() {
+	const promise = new Promise((resolve, reject) => {
+	fs.readFile('musicTcs.json', 'utf-8', async (err, data) => {
 		if (err) {
 			throw err;
 		}
@@ -25,7 +28,10 @@ function loadMusicTcs() {
 				.then(channel => global.music.tcByBot[key] = channel);
 		});
 		console.log("MusicTcs loaded!");
+		resolve()
 	});
+	});
+	await promise;
 }
 
 function saveMusicTcs() {

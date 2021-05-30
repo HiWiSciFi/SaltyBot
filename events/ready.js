@@ -10,6 +10,6 @@ client.once('ready', async () => {
 		showWarns: false
 	});
 
-	global.dataHandler.loadMusicTcs();
+	await global.dataHandler.loadMusicTcs();
 	global.musicHandler.initiate();
 });
