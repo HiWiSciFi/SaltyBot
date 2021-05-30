@@ -191,20 +191,20 @@ function onExit(before, after){
 
 //inclusive come from nothing / from another channel
 function onEnter(before, after){
-	const isHydra = global.musicHandler.isHydra(after.member);
+	// const isHydra = global.musicHandler.isHydra(after.member);
 
-	if(!isHydra){
-		if(global.music.tcByVc[after.channel]){
-			var index = global.music.listeners.findIndex(element => element.id === after.member.id);
-			if (index === -1) {
-				global.music.listeners.push(after.member);
-			}
-			global.music.tcByVc[after.channel].updateOverwrite(after.member, {'VIEW_CHANNEL': true}).catch(global.musicHandler.missingAccess);;
-			if(global.music.openTc && after.member.id !== global.client.user.id){
-				global.music.openTc.updateOverwrite(after.member, {'VIEW_CHANNEL': false}).catch(global.musicHandler.missingAccess);;
-			}
-		}
-	}
+	// if(!isHydra){
+	// 	if(global.music.tcByVc[after.channel]){
+	// 		var index = global.music.listeners.findIndex(element => element.id === after.member.id);
+	// 		if (index === -1) {
+	// 			global.music.listeners.push(after.member);
+	// 		}
+	// 		global.music.tcByVc[after.channel].updateOverwrite(after.member, {'VIEW_CHANNEL': true}).catch(global.musicHandler.missingAccess);;
+	// 		if(global.music.openTc && after.member.id !== global.client.user.id){
+	// 			global.music.openTc.updateOverwrite(after.member, {'VIEW_CHANNEL': false}).catch(global.musicHandler.missingAccess);;
+	// 		}
+	// 	}
+	// }
 
 	// if creation channel
 	if (`${after.channel.id}` in data_creationVcs) {
@@ -220,21 +220,21 @@ function onEnter(before, after){
 
 //inclusive leave to nothing / to another channel
 function onLeave(before, after){
-	const isHydra = global.musicHandler.isHydra(before.member);
-	if(!isHydra){
-		if(global.music.tcByVc[before.channel]){
-			var index = global.music.listeners.findIndex(element => element.id === before.member.id);
-			if (index > -1) {
-				global.music.listeners.splice(index, 1);
-			}
-			if(before.member.id !== global.client.user.id){
-				global.music.tcByVc[before.channel].updateOverwrite(before.member, {'VIEW_CHANNEL': false}).catch(global.musicHandler.missingAccess);
-				if (global.music.openTc) {
-					global.music.openTc.updateOverwrite(after.member, {'VIEW_CHANNEL': true}).catch(global.musicHandler.missingAccess);;
-				}
-			}
-		}
-	}
+	// const isHydra = global.musicHandler.isHydra(before.member);
+	// if(!isHydra){
+	// 	if(global.music.tcByVc[before.channel]){
+	// 		var index = global.music.listeners.findIndex(element => element.id === before.member.id);
+	// 		if (index > -1) {
+	// 			global.music.listeners.splice(index, 1);
+	// 		}
+	// 		if(before.member.id !== global.client.user.id){
+	// 			global.music.tcByVc[before.channel].updateOverwrite(before.member, {'VIEW_CHANNEL': false}).catch(global.musicHandler.missingAccess);
+	// 			if (global.music.openTc) {
+	// 				global.music.openTc.updateOverwrite(after.member, {'VIEW_CHANNEL': true}).catch(global.musicHandler.missingAccess);;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	// if created vc
 	if (before.channel in data_createdVcs) {
