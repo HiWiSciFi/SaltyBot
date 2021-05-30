@@ -1,11 +1,10 @@
 module.exports = {
-	slash: true,
-	testOnly: true,
-	description: 'List all creation channels',
-	guildOnly: true,
+	name: "cclist",
+	description: "List all creation channels",
+	ephemeral: true,
 	permissions: ["MANAGE_CHANNELS"],
-	callback: ({}) => {
-		embed = new Discord.MessageEmbed()
+	callback: (interaction, args, member, guild) => {
+		let embed = new Discord.MessageEmbed()
 			.setTitle('cclist command')
 			.setDescription('List of creation channels')
 			.setColor(global.defaultcolor);
@@ -13,5 +12,8 @@ module.exports = {
 			embed.addFields({name: k, value: global.data_creationVcs[k], inline: true});
 		}
 		return embed;
+	},
+	errorcallback: (err, interaction, args, member, guild) => {
+		return new Discord.MessageEmbed().setTitle('Error').setDescription(err).setColor(global.errorcolor);
 	}
 };

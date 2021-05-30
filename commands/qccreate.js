@@ -1,21 +1,29 @@
 module.exports = {
-	slash: true,
-	testOnly: true,
+	name: 'qccreate',
 	description: 'Create a quote channel',
-	minArgs: 1,
-	expectedArgs: "<channelid>",
+	options: [
+		{
+			name: "channelid",
+			description: "The ID of the channel to turn into a quote channel",
+			type: 3,
+			required: true
+		}
+	],
+	ephemeral: true,
 	permissions: ["MANAGE_CHANNELS"],
-	guildOnly: true,
-	callback: ({ message, args }) => {
-		const [channelid] = args;
-
-		global.data_quoteChannelIDs.push(channelid);
+	callback: (interaction, args, member, guild) => {
+		global.data_quoteChannelIDs.push(args["channelid"]);
 		global.dataHandler.saveQuoteChannels();
 
-		embed = new Discord.MessageEmbed()
+		return new Discord.MessageEmbed()
 			.setTitle('Quote channel created!')
-			.setDescription(`Channel with ID ${channelid} turned into a quote channel!`)
+			.setDescription(`Channel with ID ${args["channelid"]} turned into a quote channel!`)
 			.setColor(global.defaultcolor);
-		return embed;
+	},
+	errorcallback: (err, interaction, args, member, guild) => {
+		return new Discord.MessageEmbed()
+			.setTitle('Error')
+			.setDescription(err)
+			.setColor(global.errorcolor);
 	}
 };

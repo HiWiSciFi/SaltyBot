@@ -1,30 +1,36 @@
 module.exports = {
-	slash: true,
-	testOnly: true,
+	name: "ccremove",
 	description: 'Delete a creation channel',
-	minArgs: 1,
-	expectedArgs: "<channelid>",
+	options: [
+		{
+			name: "channelid",
+			description: "The ID of the channel to turn back into a normal vc",
+			type: 3,
+			required: true
+		}
+	],
+	ephemeral: true,
 	permissions: ["MANAGE_CHANNELS"],
-	guildOnly: true,
-	callback: ({ message, args }) => {
-
-		const [channelid] = args;
-
-		if (!(channelid in global.data_creationVcs)) {
-			embed = new Discord.MessageEmbed()
+	callback: (interaction, args, member, guild) => {
+		if (!(args["channelid"] in global.data_creationVcs)) {
+			return new Discord.MessageEmbed()
 				.setTitle('Creation vc could not be removed!')
 				.setDescription('There is no registered creation vc with the given ID!')
 				.setColor(global.errorcolor);
-			return embed;
 		}
 
-		delete global.data_creationVcs[channelid];
+		delete global.data_creationVcs[args["channelid"]];
 		global.dataHandler.saveCreationVcs();
 
-		embed = new Discord.MessageEmbed()
+		return new Discord.MessageEmbed()
 			.setTitle('Creation vc removed!')
 			.setDescription('The channel can now be used like a normal voice channel!')
 			.setColor(global.defaultcolor);
-		return embed;
+	},
+	errorcallback: (err, interaction, args, member, guild) => {
+		return new Discord.MessageEmbed()
+			.setTitle('Error')
+			.setDescription(err)
+			.setColor(global.errorcolor);
 	}
 };

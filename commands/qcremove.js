@@ -1,29 +1,36 @@
 module.exports = {
-	slash: true,
-	testOnly: true,
-	description: 'Delete a quote channel',
-	minArgs: 1,
-	expectedArgs: "<channelid>",
+	name: "qcremove",
+	description: "Turn a quote channel back into a normal tc",
+	options: [
+		{
+			name: "channelid",
+			description: "The ID of the channel to turn back into a normal tc",
+			type: 3,
+			required: true
+		}
+	],
+	ephemeral: true,
 	permissions: ["MANAGE_CHANNELS"],
-	guildOnly: true,
-	callback: ({ message, args }) => {
-		const [channelid] = args;
-
-		if (!global.data_quoteChannelIDs.includes(channelid)) {
-			embed = new Discord.MessageEmbed()
+	callback: (interaction, args, member, guild) => {
+		if (!global.data_quoteChannelIDs.includes(args["channelid"])) {
+			return new Discord.MessageEmbed()
 				.setTitle('Quote channel could not be removed!')
 				.setDescription('There is no registered quote channel with the given ID!')
 				.setColor(global.errorcolor);
-			return embed;
 		}
 
-		global.data_quoteChannelIDs.splice(global.data_quoteChannelIDs.indexOf(channelid), 1);
+		global.data_quoteChannelIDs.splice(global.data_quoteChannelIDs.indexOf(args["channelid"]), 1);
 		global.dataHandler.saveQuoteChannels();
 
-		embed = new Discord.MessageEmbed()
+		return new Discord.MessageEmbed()
 			.setTitle('Quote channel removed!')
 			.setDescription('The channel can now be used like a normal text channel!')
 			.setColor(global.defaultcolor);
-		return embed;
+	},
+	errorcallback: (err, interaction, args, member, guild) => {
+		return new Discord.MessageEmbed()
+			.setTitle('Error')
+			.setDescription(err)
+			.setColor(global.errorcolor);
 	}
 };
