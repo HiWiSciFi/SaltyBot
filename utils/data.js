@@ -7,7 +7,10 @@ global.data_configMsgs = {}; // Message - configMsg : GuildChannel - tc
 
 global.music = {
 	tcByBot: {},
-	tcByVc: {}
+	tcByVc: {},
+	openTc: {},
+	freeTcs: [],
+	listeners: []
 }
 
 function loadMusicTcs() {

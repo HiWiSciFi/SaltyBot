@@ -11,4 +11,5 @@ client.once('ready', async () => {
 	});
 
 	global.dataHandler.loadMusicTcs();
+	global.musicHandler.initiate();
 });

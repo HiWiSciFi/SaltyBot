@@ -14,6 +14,7 @@ global.dataHandler.loadCreationVcs();
 global.dataHandler.loadQuoteChannels();
 global.helpers = require('./utils/helpers');
 global.channelutils = require('./utils/channelutils');
+global.musicHandler = require("./utils/musicUtils.js");
 
 // register events
 require('./events/ready');
