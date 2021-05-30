@@ -23,10 +23,10 @@ async function loadMusicTcs() {
 		}
 
 		data = JSON.parse(data.toString());
-		Object.keys(data).forEach(key => {
-			global.client.channels.fetch(data[key])
+		await Promise.all(Object.keys(data).map(async key => {
+			return global.client.channels.fetch(data[key])
 				.then(channel => global.music.tcByBot[key] = channel);
-		});
+		}));
 		console.log("MusicTcs loaded!");
 		resolve()
 	});

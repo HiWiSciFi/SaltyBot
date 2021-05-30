@@ -26,7 +26,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
             case "🔓":
                 console.log(user.username + " unlocked " + vc.name + " 🔓");
                 //synchonizes the channel with the category
-                vc.lockPermissions();
+                if(vc.lockPermissions)
+                    vc.lockPermissions();
+                else {
+                    for(var [key,permissionOverwrite] of vc.permissionOverwrites){
+                        permissionOverwrite.update({'VIEW_CHANNEL': null});
+                    }
+                    cc.updateOverwrite(cc.guild.roles.everyone, {'VIEW_CHANNEL': null}); 
+                }
                 //update embed
                 global.data_configMsgs[tc].edit(helpers.getEmbed("Channel Configuration", "react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked", defaultcolor))
                     .then(msg => global.data_configMsgs[tc] = msg);
