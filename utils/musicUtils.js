@@ -12,31 +12,26 @@ function initiate() {
 
         global.music.freeTcs.push(tc);
     }
-    if(tcs[0].lockPermissions) {
-        tcs[0].lockPermissions();
-    }
-    else{
-        for(var [key,permissionOverwrite] of tcs[0].permissionOverwrites){
-            permissionOverwrite.update({'VIEW_CHANNEL': null});
-        }
-        tcs[0].updateOverwrite(tcs[0].guild.roles.everyone, {'VIEW_CHANNEL': null}); 
-    }
+    lock(tcs[0]);
     global.music.openTc = tcs[0];
 }
 
 function terminate() {
     Object.keys(global.music.tcByBot).forEach(key => {
-        var tc = global.music.tcByBot[key];
-        if(tc.lockPermissions) {
-            tc.lockPermissions();
-        }
-        else{
-            for(var [key,permissionOverwrite] of tc.permissionOverwrites){
-                permissionOverwrite.update({'VIEW_CHANNEL': null});
-            }
-            tc.updateOverwrite(tc.guild.roles.everyone, {'VIEW_CHANNEL': null}); 
-        }
+        lock(global.music.tcByBot[key]);
     });
+}
+
+function lock(channel){
+    if(channel.lockPermissions) {
+        channel.lockPermissions();
+    }
+    else{
+        for(var [key,permissionOverwrite] of channel.permissionOverwrites){
+            permissionOverwrite.update({'VIEW_CHANNEL': null});
+        }
+        channel.updateOverwrite(channel.guild.roles.everyone, {'VIEW_CHANNEL': null}); 
+    }
 }
 
 function isHydra(user) {

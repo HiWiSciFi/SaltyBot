@@ -40,8 +40,8 @@ client.on('voiceStateUpdate', async (before, after) => {
 });
 
 function onSwitch(before, after) {
-	onEnter(before, after);
 	onExit(before, after);
+	onEnter(before, after);
 
 	const isHydra = global.musicHandler.isHydra(after.member);
 	if(isHydra) {
@@ -101,17 +101,15 @@ function onJoin(before, after){
 
 		if(tc.id === global.music.openTc.id) {
 			global.music.openTc = global.music.freeTcs.pop();
-			global.music.openTc.lock();
+			global.musicHandler.lock(global.music.openTc);
 			global.music.listeners.forEach(member => {
 				global.music.openTc.updateOverwritetc(member, {'VIEW_CHANNEL': false});
 			});
 		}
-		((index = global.music.freeTcs.findIndex(element => element.id === tc.id)) =>
-		{
-			if (index > -1) {
-				global.music.freeTcs.splice(index, -1);
-			}
-		})();
+		var index = global.music.freeTcs.findIndex(element => element.id === tc.id)
+		if (index > -1) {
+			global.music.freeTcs.splice(index, -1);
+		}
 	}
 }
 
@@ -134,7 +132,7 @@ function onExit(before, after){
 				delete global.tcByVc[before.channel];
 			}
 			else {
-				tc.lock();
+				global.musicHandler.lock(tc);
 				global.music.openTc = tc;
 				global.music.listeners.forEach(member => {
 					tc.updateOverwritetc(member, {'VIEW_CHANNEL': true});
@@ -142,12 +140,10 @@ function onExit(before, after){
 				delete global.music.tcByVc[before.channel];
 			}
 			before.channel.members.forEach(member => {
-				((index = global.music.listeners.findIndex(element => element.id === member.id)) =>
-				{
-					if (index > -1) {
-						global.music.listeners.splice(index, -1);
-					}
-				})();
+				var index = global.music.listeners.findIndex(element => element.id === member.id);
+				if (index > -1) {
+					global.music.listeners.splice(index, -1);
+				}
 			});
 		}
 	}
@@ -166,6 +162,17 @@ function onEnter(before, after){
 		channelutils.addPerms(after.channel, after.member);
 	}
 
+	const isHydra = global.musicHandler.isHydra(after.member);
+
+	if(!isHydra){
+		if(global.music.tcByVc[after.channel]){
+			var index = global.music.listeners.findIndex(element => element.id === after.member.id);
+			if (index === -1) {
+				listeners.push(after.member);
+			}
+			global.music.tcByVc[after.channel].updateOverwrite(after.member, {'VIEW_CHANNEL': true})
+		}
+	}
 }
 
 //inclusive leave to nothing / to another channel
@@ -176,10 +183,18 @@ function onLeave(before, after){
 		(async() => {
 			await channelutils.removePerms(before.channel, before.member);
 			channelutils.removeChannelIfEmpty(before.channel);
-		})()
+		})();
 	}
 
 
 	const isHydra = global.musicHandler.isHydra(before.member);
-
+	if(!isHydra){
+		if(global.music.tcByVc[before.channel]){
+			var index = global.music.listeners.findIndex(element => element.id === before.member.id);
+			if (index > -1) {
+				global.music.listeners.splice(index, -1);
+			}
+			global.music.tcByVc[before.channel].updateOverwrite(before.member, {'VIEW_CHANNEL': false})
+		}
+	}
 }
