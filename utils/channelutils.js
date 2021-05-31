@@ -28,7 +28,7 @@ async function createChannel(creationChannel, member) {
 	tcperms.forEach(tcpermow => {
 		if (tcpermow.id !== client.user.id) tcpermow.delete();
 	});
-	created_tc.createOverwrite(creationChannel.guild.roles.everyone, {VIEW_CHANNEL: false});
+	await created_tc.createOverwrite(creationChannel.guild.roles.everyone, {VIEW_CHANNEL: false});
 	created_tc.createOverwrite(member.user, {VIEW_CHANNEL: true});
 
 	// assemble channel name
