@@ -147,7 +147,11 @@ async function unloadCommands() {
 	const commands = await getApp().commands.get();
 	// iterate over all commands and delete by id
 	for (var i = 0; i < commands.length; i++) {
-		await getApp().commands(commands[i].id).delete();
+		command = getApp().commands(commands[i]);
+		console.log(command);
+		/*if (true) {
+			await getApp().commands(commands[i].id).delete();
+		}*/
 	}
 	console.log('Commands unloaded!');
 };

@@ -51,8 +51,8 @@ async function createChannel(creationChannel, member) {
 	}
 
 	// update channel names
-	created_vc.edit({name: channelname});
-	created_tc.edit({name: channelname});
+	created_vc.setName(channelname);
+	created_tc.setName(channelname);
 
 	// send configuration message
 	let configMsg = await helpers.sendEmbed(created_tc, "Channel Configuration", "react with 🔒 to make the voice channel private and with 🔓 to make it public again!\nCurrent status: unlocked", defaultcolor);
@@ -96,7 +96,7 @@ async function addPerms(voiceChannel, member) {
 };
 
 async function removePerms(voiceChannel, member) {
-	await data_createdVcs[voiceChannel].permissionOverwrites.get(member.id).delete();
+	await data_createdVcs[voiceChannel].permissionOverwrites.get(member.id)?.delete();
 };
 
 // export functions

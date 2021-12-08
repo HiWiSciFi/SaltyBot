@@ -11,5 +11,5 @@ client.once('ready', async () => {
 
 async function reloadCommands() {
 	await global.commandHandler.unloadCommands();
-	global.commandHandler.loadCommands();
+	//global.commandHandler.loadCommands();
 };

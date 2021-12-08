@@ -1,11 +1,82 @@
-const util = require('util');
-
 client.on('voiceStateUpdate', async (before, after) => {
-	// cancel if error
-	if (before.channel === null && after.channel === null) {
+	// cancel if same channel
+	if (before.channel === after.channel) {
 		return;
 	}
 
+	// cancel if moved from a creation channel
+	if (before.channel !== null) {
+		if (`${before.guild.id}` === permittedServer) {
+			if (`${before.channel.id}` in data_creationVcs) {
+				return;
+			}
+		}
+	}
+
+	if(after.channel && before.channel) {
+		if (`${after.guild.id}` === permittedServer && `${before.guild.id}` === permittedServer) 
+			onSwitch(before, after);
+	}
+	else {
+		// entered a channel
+		if (after.channel !== null) {
+			// if server is correct
+			if (`${after.guild.id}` === permittedServer) 
+				onJoin(before, after);
+		}
+
+		// exited a channel
+		if (before.channel !== null) {
+			// if server is correct
+			if (`${before.guild.id}` === permittedServer) 
+				onExit(before, after);
+		}
+	}
+});
+
+
+function onSwitch(before, after) {
+	onLeave(before, after);
+	onEnter(before, after);
+}
+
+//TODO add Hydra 1. of April rickroll
+function onJoin(before, after){
+	onEnter(before, after);
+}
+
+//explicit leave to nothing
+function onExit(before, after){
+	onLeave(before, after);
+}
+
+//inclusive come from nothing / from another channel
+function onEnter(before, after){
+	// if creation channel
+	if (`${after.channel.id}` in data_creationVcs) {
+		channelutils.createChannel(after.channel, after.member);
+	}
+
+	// if created channel
+	if (after.channel in data_createdVcs) {
+		channelutils.addPerms(after.channel, after.member);
+	}
+}
+
+//inclusive leave to nothing / to another channel
+function onLeave(before, after){
+	// if created vc
+	if (before.channel in data_createdVcs) {
+		(async() => {
+			await channelutils.removePerms(before.channel, before.member);
+			channelutils.removeChannelIfEmpty(before.channel);
+		})();
+	}
+}
+
+/*const util = require('util');
+
+client.on('voiceStateUpdate', async (before, after) => {
 	// cancel if same channel
 	if (before.channel === after.channel) {
 		return;
@@ -243,4 +314,4 @@ function onLeave(before, after){
 			channelutils.removeChannelIfEmpty(before.channel);
 		})();
 	}
-}
+}*/
